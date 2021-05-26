@@ -1,23 +1,19 @@
-import 'package:devflix/screens/home/home.dart';
-import 'package:devflix/screens/login/login.dart';
+import 'package:devflix/core/theme/app_colors.dart';
+import 'package:devflix/routes/pages.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Login(),
-    );
-  }
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(GetMaterialApp(
+    initialRoute: Pages.LOGIN,
+    getPages: Pages.routes,
+    debugShowCheckedModeBanner: false,
+    title: 'Flutter Demo',
+    theme: ThemeData(
+      primarySwatch: AppColors.blue,
+    ),
+  ));
 }

@@ -24,7 +24,7 @@ class CategoryComponent extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 20,
-            backgroundImage: AssetImage('assets/categorias/${imageUrl}.png'),
+            backgroundImage: AssetImage('assets/categorias/$imageUrl.png'),
             backgroundColor: Colors.transparent,
           ),
           Text(
