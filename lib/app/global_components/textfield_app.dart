@@ -1,4 +1,4 @@
-import 'package:devflix/core/theme/app_colors.dart';
+import 'package:devflix/app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldApp extends StatelessWidget {

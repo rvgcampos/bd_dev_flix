@@ -1,4 +1,4 @@
-import 'package:devflix/screens/home/home_controller.dart';
+import 'package:devflix/app/modules/home/home_controller.dart';
 import 'package:get/get.dart';
 
 class HomePageBinding implements Bindings {

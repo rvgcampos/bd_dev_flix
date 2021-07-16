@@ -1,5 +1,5 @@
-import 'package:devflix/core/theme/app_colors.dart';
-import 'package:devflix/routes/pages.dart';
+import 'package:devflix/app/core/theme/app_colors.dart';
+import 'package:devflix/app/routes/pages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,5 +1,5 @@
-import 'package:devflix/core/theme/app_colors.dart';
-import 'package:devflix/screens/movie_detail/movie_detail_controller.dart';
+import 'package:devflix/app/core/theme/app_colors.dart';
+import 'package:devflix/app/modules/movie_detail/movie_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

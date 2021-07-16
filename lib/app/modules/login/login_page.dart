@@ -1,6 +1,6 @@
-import 'package:devflix/core/theme/app_colors.dart';
-import 'package:devflix/global_components/button_app.dart';
-import 'package:devflix/global_components/textfield_app.dart';
+import 'package:devflix/app/core/theme/app_colors.dart';
+import 'package:devflix/app/global_components/button_app.dart';
+import 'package:devflix/app/global_components/textfield_app.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'login_controller.dart';

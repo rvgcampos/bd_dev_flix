@@ -1,7 +1,7 @@
-import 'package:devflix/core/theme/app_colors.dart';
-import 'package:devflix/screens/home/components/category_component.dart';
-import 'package:devflix/screens/home/components/popular_component.dart';
-import 'package:devflix/screens/home/home_controller.dart';
+import 'package:devflix/app/core/theme/app_colors.dart';
+import 'package:devflix/app/modules/home/components/category_component.dart';
+import 'package:devflix/app/modules/home/components/popular_component.dart';
+import 'package:devflix/app/modules/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

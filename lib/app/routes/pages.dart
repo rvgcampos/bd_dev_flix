@@ -1,9 +1,9 @@
-import 'package:devflix/screens/home/home_biding.dart';
-import 'package:devflix/screens/home/home_page.dart';
-import 'package:devflix/screens/login/login_binding.dart';
-import 'package:devflix/screens/login/login_page.dart';
-import 'package:devflix/screens/movie_detail/movie_detail_biding.dart';
-import 'package:devflix/screens/movie_detail/movie_detail_page.dart';
+import 'package:devflix/app/modules/home/home_biding.dart';
+import 'package:devflix/app/modules/home/home_page.dart';
+import 'package:devflix/app/modules/login/login_binding.dart';
+import 'package:devflix/app/modules/login/login_page.dart';
+import 'package:devflix/app/modules/movie_detail/movie_detail_biding.dart';
+import 'package:devflix/app/modules/movie_detail/movie_detail_page.dart';
 import 'package:get/get.dart';
 part 'routes.dart';
 

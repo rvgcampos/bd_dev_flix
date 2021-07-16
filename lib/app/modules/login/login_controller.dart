@@ -1,4 +1,4 @@
-import 'package:devflix/routes/pages.dart';
+import 'package:devflix/app/routes/pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,26 +7,18 @@ class LoginPageController extends GetxController {
 
   final FirebaseAuth _firebaseAuth;
   LoginPageController(this._firebaseAuth);
-  var loading = RxBool(false);
-  var enableObscure = RxBool(true);
-  var validatedUsername = RxBool(true);
-  var validatedPassword = RxBool(true);
+  var loading = false.obs;
+  var enableObscure = true.obs;
+  var validatedUsername = true.obs;
+  var validatedPassword = true.obs;
   var usernameController =  TextEditingController();
   var passwordController = TextEditingController();
 
   void changeObscure() => enableObscure.value = !enableObscure.value;
 
   bool validateFields(){
-    if(usernameController.text.isEmpty){
-      validatedUsername.value = false;
-    }else{
-      validatedUsername.value = true;
-    }
-    if(passwordController.text.isEmpty){
-      validatedPassword.value = false;
-    }else{
-      validatedPassword.value = true;
-    }
+    validatedUsername.value = usernameController.text.isEmpty ? true : false;
+    validatedPassword.value = passwordController.text.isEmpty ? true : false;
     return validatedPassword.value && validatedUsername.value;
   }
 
