@@ -2,16 +2,15 @@ import 'package:devflix/app/core/theme/app_colors.dart';
 import 'package:devflix/app/modules/home/components/category_component.dart';
 import 'package:devflix/app/modules/home/components/popular_component.dart';
 import 'package:devflix/app/modules/home/home_controller.dart';
+import 'package:devflix/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends GetView<HomePageController> {
-
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         return false;
       },
       child: Scaffold(
@@ -106,7 +105,8 @@ class HomePage extends GetView<HomePageController> {
                       padding: const EdgeInsets.only(left: 20, top: 15),
                       child: Text(
                         'Categorias',
-                        style: TextStyle(color: AppColors.contrast, fontSize: 18),
+                        style:
+                            TextStyle(color: AppColors.contrast, fontSize: 18),
                       ),
                     ),
                   ],
@@ -137,7 +137,8 @@ class HomePage extends GetView<HomePageController> {
                     scrollDirection: Axis.horizontal,
                     children: [
                       PopularComponent('La Casa de Papel', 'casa_papel'),
-                      PopularComponent('Velozes e Furiosos 9', 'velozes_furiosos'),
+                      PopularComponent(
+                          'Velozes e Furiosos 9', 'velozes_furiosos'),
                       PopularComponent('John Wick 3', 'john_wick'),
                     ],
                   ),
@@ -148,29 +149,38 @@ class HomePage extends GetView<HomePageController> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: AppColors.darkBlue,
-          unselectedItemColor: AppColors.lightBlue.withAlpha(50),
+          unselectedItemColor: AppColors.contrast.withAlpha(50),
           elevation: 0,
           // currentIndex: movieProvider.selectedIndex,
-          selectedItemColor: AppColors.lightBlue,
+          selectedItemColor: AppColors.contrast,
           onTap: (index) {
-            print('sdas');
+            if (index == 0) {
+               Get.toNamed(Pages.HOME);
+            }else if (index == 1){
+               Get.toNamed(Pages.MOVIES);
+            }
           },
           items: [
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.movie,
-                color: AppColors.lightBlue,
+                color: AppColors.contrast,
               ),
               label: 'Geral',
-              // title: Text('Geral'),
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.stars,
-                color: AppColors.lightBlue,
+                color: AppColors.contrast,
               ),
-              label: 'Geral',
-              // title: Text('Meus Filmes'),
+              label: 'Filme',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.stars,
+                color: AppColors.contrast,
+              ),
+              label: 'Séries',
             ),
           ],
         ),
