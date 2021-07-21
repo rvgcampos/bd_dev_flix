@@ -19,10 +19,10 @@ class HomePage extends GetView<HomePageController> {
           automaticallyImplyLeading: false,
           elevation: 0,
           title: Center(
-            child: Text(
-              'Olá, Renato!',
+            child: Obx(()=> Text(
+              'Olá, ${controller.user.primeiroNome}!',
               style: TextStyle(color: AppColors.contrast, fontSize: 26),
-            ),
+            )),
           ),
           backgroundColor: AppColors.darkBlue,
           actions: [
@@ -131,18 +131,18 @@ class HomePage extends GetView<HomePageController> {
                     style: TextStyle(color: AppColors.contrast, fontSize: 18),
                   ),
                 ),
+                Obx(()=>
                 Container(
                   height: 330,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: [
-                      PopularComponent('La Casa de Papel', 'casa_papel'),
-                      PopularComponent(
-                          'Velozes e Furiosos 9', 'velozes_furiosos'),
-                      PopularComponent('John Wick 3', 'john_wick'),
-                    ],
+                    children: controller.listMovies.map(
+                      (movie) => PopularComponent(
+                        movie.tituloModel.titulo,
+                        movie.image
+                      )).toList()
                   ),
-                )
+                ))
               ],
             ),
           ),

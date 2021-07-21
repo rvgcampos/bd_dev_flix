@@ -21,8 +21,8 @@ class PopularComponent extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  'assets/popular/$imageUrl.jpg',
+                child: Image.network(
+                  imageUrl,
                   fit: BoxFit.cover,
                   height: 250,
                 ),
