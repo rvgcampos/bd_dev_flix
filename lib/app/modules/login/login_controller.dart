@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:devflix/app/data/models/movie_model.dart';
 import 'package:devflix/app/data/models/user_model.dart';
 import 'package:devflix/app/routes/pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,38 +23,40 @@ class LoginPageController extends GetxController {
   void changeObscure() => enableObscure.value = !enableObscure.value;
 
   bool validateFields(){
-    validatedUsername.value = usernameController.text.isEmpty ? true : false;
-    validatedPassword.value = passwordController.text.isEmpty ? true : false;
+    validatedUsername.value = usernameController.text.isEmpty ? false : true;
+    validatedPassword.value = passwordController.text.isEmpty ? false : true;
     return validatedPassword.value && validatedUsername.value;
   }
 
   Future<void> signIn() async{
     loading.value = true;
-    if(validateFields())
-    try{
-      var user;
-      await _firebaseAuth.signInWithEmailAndPassword(
-        email: usernameController.text, password: passwordController.text
-      );
-      await _firestore.collection('conta').snapshots().forEach((documents) {
-        documents.docs.forEach((doc) { 
-          if(doc['email'] == usernameController.text){
-            user = UserModel.fromDocument(doc);
-          }else{
-            user = UserModel(
-              email: '', 
-              primeiroNome: '', 
-              sobrenome: '',
-            );
-          }
+    if(validateFields()){
+      try{
+        var user = UserModel(
+          email: '', 
+          primeiroNome: '', 
+          sobrenome: '',
+        );
+        await _firebaseAuth.signInWithEmailAndPassword(
+          email: usernameController.text, password: passwordController.text
+        );
+
+        await _firestore.collection('conta').get().then((value){
+          value.docs.forEach((doc) { 
+            if(doc.get('email') == usernameController.text){
+              user = UserModel.fromJson(doc.data());
+            }
+          });
+        }).whenComplete((){
+          Get.offNamed(Pages.HOME, arguments:user);
+          loading.value = false;
         });
-      });
-      await Get.offNamed(Pages.HOME, arguments:user);
-    } on FirebaseAuthException catch(e){
-      validatedUsername.value = false;
-      validatedPassword.value = false;
-      print(e.toString());
+      } on FirebaseAuthException catch(e){
+        validatedUsername.value = false;
+        validatedPassword.value = false;
+        loading.value = false;
+        debugPrint(e.toString());
+      }
     }
-    loading.value = false;
   }
 }

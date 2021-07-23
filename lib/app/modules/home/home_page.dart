@@ -19,10 +19,10 @@ class HomePage extends GetView<HomePageController> {
           automaticallyImplyLeading: false,
           elevation: 0,
           title: Center(
-            child: Obx(()=> Text(
-              'Olá, ${controller.user.primeiroNome}!',
-              style: TextStyle(color: AppColors.contrast, fontSize: 26),
-            )),
+            child: Obx(() => Text(
+                  'Olá, ${controller.user.value.primeiroNome}!',
+                  style: TextStyle(color: AppColors.contrast, fontSize: 26),
+                )),
           ),
           backgroundColor: AppColors.darkBlue,
           actions: [
@@ -131,18 +131,20 @@ class HomePage extends GetView<HomePageController> {
                     style: TextStyle(color: AppColors.contrast, fontSize: 18),
                   ),
                 ),
-                Obx(()=>
-                Container(
-                  height: 330,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: controller.listMovies.map(
-                      (movie) => PopularComponent(
-                        movie.tituloModel.titulo,
-                        movie.image
-                      )).toList()
-                  ),
-                ))
+                Obx(() => Container(
+                    height: 330,
+                    child: controller.loading.value ?
+                    Center(child:CircularProgressIndicator())
+                    :Obx(
+                      () => ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: controller.listMovies
+                              .map((movie) => PopularComponent(
+                                    movie.tituloModel!,
+                                    movie.image!,
+                                  ))
+                              .toList()),
+                    )))
               ],
             ),
           ),
@@ -155,9 +157,9 @@ class HomePage extends GetView<HomePageController> {
           selectedItemColor: AppColors.contrast,
           onTap: (index) {
             if (index == 0) {
-               Get.toNamed(Pages.HOME);
-            }else if (index == 1){
-               Get.toNamed(Pages.MOVIES);
+              Get.toNamed(Pages.HOME);
+            } else if (index == 1) {
+              Get.toNamed(Pages.MOVIES);
             }
           },
           items: [

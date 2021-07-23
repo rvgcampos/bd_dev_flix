@@ -1,5 +1,7 @@
 import 'package:devflix/app/data/datasource/movies_datasource.dart';
+import 'package:devflix/app/data/models/genero_model.dart';
 import 'package:devflix/app/data/models/movie_model.dart';
+import 'package:devflix/app/data/models/titulo_model.dart';
 
 class MoviesRepository{
 

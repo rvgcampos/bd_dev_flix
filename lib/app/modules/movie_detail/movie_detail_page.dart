@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MovieDetailPage extends GetView<MovieDetailPageController> {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: AppColors.darkBlue,
       appBar: AppBar(
@@ -35,11 +33,11 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  'assets/popular/casa_papel.jpg',
-                  fit: BoxFit.cover,
-                  height: 350,
-                ),
+                child: Obx(() => Image.network(
+                      controller.imageUrl.value,
+                      fit: BoxFit.cover,
+                      height: 350,
+                    )),
               ),
               SizedBox(
                 height: 25,
@@ -51,14 +49,14 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'La Casa de Papel',
-                          style: TextStyle(
-                            color: AppColors.contrast,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        Obx(() => Text(
+                              controller.tituloModel.value.titulo!,
+                              style: TextStyle(
+                                color: AppColors.contrast,
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
                         SizedBox(
                           height: 10,
                         ),
@@ -81,38 +79,19 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
                               height: 30,
                               decoration: BoxDecoration(
                                 color: AppColors.grey.withAlpha(40),
-                                border: Border.all(color: AppColors.transparent),
+                                border:
+                                    Border.all(color: AppColors.transparent),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(20),
                                 ),
                               ),
-                              child: Text(
-                                'Crime',
-                                style: TextStyle(
-                                  color: AppColors.contrast,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              width: 80,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: AppColors.grey.withAlpha(40),
-                                border: Border.all(color: AppColors.transparent),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                              ),
-                              child: Text(
-                                'Crime',
-                                style: TextStyle(
-                                  color: AppColors.contrast,
-                                ),
-                              ),
+                              child: Obx(() => Text(
+                                    controller
+                                        .tituloModel.value.generoModel!.genero,
+                                    style: TextStyle(
+                                      color: AppColors.contrast,
+                                    ),
+                                  )),
                             ),
                           ],
                         ),
@@ -128,18 +107,19 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Container(
                           width: 350,
                           height: 150,
                           child: SingleChildScrollView(
-                            child: Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempor sagittis quam, vel efficitur augue rutrum vitae. Sed lacinia ut arcu sed bibendum. Curabitur ornare, nisi pulvinar aliquam accumsan, ligula turpis maximus odio, a semper lacus libero ut mi. Fusce aliquet ultrices enim nec viverra. Etiam urna nunc, vehicula eget varius a, volutpat sit amet risus. Donec in sodales enim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec pulvinar turpis nec justo tempor, nec eleifend leo venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
-                              style: TextStyle(
-                                color: AppColors.contrast.withAlpha(80),
-                                fontSize: 18
-                              ),
-                            ),
+                            child: Obx(() => Text(
+                                  controller.tituloModel.value.sinopse!,
+                                  style: TextStyle(
+                                      color: AppColors.contrast.withAlpha(80),
+                                      fontSize: 18),
+                                )),
                           ),
                         )
                       ],

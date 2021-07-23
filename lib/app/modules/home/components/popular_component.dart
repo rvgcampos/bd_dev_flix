@@ -1,18 +1,20 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
+import 'package:devflix/app/data/models/movie_model.dart';
+import 'package:devflix/app/data/models/titulo_model.dart';
 import 'package:devflix/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PopularComponent extends StatelessWidget {
-  final String titulo;
+  final TituloModel tituloModel;
   final String imageUrl;
-  PopularComponent(this.titulo, this.imageUrl);
+  PopularComponent(this.tituloModel, this.imageUrl);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Pages.MOVIEDETAIL);
+        Get.toNamed(Pages.MOVIEDETAIL, arguments: [tituloModel,imageUrl]);
       },
       child: Container(
         child: Padding(
@@ -31,7 +33,7 @@ class PopularComponent extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                titulo,
+                tituloModel.titulo!,
                 style: TextStyle(fontSize: 18, color: AppColors.contrast),
               ),
               Row(

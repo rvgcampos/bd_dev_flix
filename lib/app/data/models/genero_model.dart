@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class GeneroModel {
   GeneroModel({
     this.id,
@@ -10,9 +8,9 @@ class GeneroModel {
   String genero;
 
 
-  factory GeneroModel.fromDocument(DocumentSnapshot document) => GeneroModel(
-    id: document["id"],
-    genero: document["genero"],
+  factory GeneroModel.fromJson(Map<String, dynamic> json) => GeneroModel(
+    id: json["id"],
+    genero: json["genero"],
   );
 
   Map<String, dynamic> toJson() => {

@@ -1,35 +1,29 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'genero_model.dart';
 
 class TituloModel {
-  TituloModel({
-    this.id,
-    required this.ano,
-    required this.generoModel,
-    required this.sinopse,
-    required this.titulo
-  });
+    TituloModel({
+        this.generoModel,
+        this.sinopse,
+        this.ano,
+        this.titulo,
+    });
 
-  int? id;
-  int ano;
-  GeneroModel generoModel;
-  String sinopse;
-  String titulo;
+    GeneroModel? generoModel;
+    String? sinopse;
+    int? ano;
+    String? titulo;
 
-  factory TituloModel.fromDocument(DocumentSnapshot document) => TituloModel(
-    id: document["id"],
-    ano: document["ano"],
-    generoModel: GeneroModel.fromDocument(document["idGenero"]),
-    sinopse: document["sinopse"],
-    titulo: document["titulo"],
-  );
+    factory TituloModel.fromJson(Map<String, dynamic> json) => TituloModel(
+        generoModel: GeneroModel.fromJson(json["genero"]),
+        sinopse: json["sinopse"],
+        ano: json["ano"],
+        titulo: json["titulo"],
+    );
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "ano": ano,
-    "idGenero": generoModel,
-    "sinopse": sinopse,
-    "titulo": titulo,
-  };
+    Map<String, dynamic> toJson() => {
+        "genero": generoModel!.toJson(),
+        "sinopse": sinopse,
+        "ano": ano,
+        "titulo": titulo,
+    };
 }

@@ -1,23 +1,19 @@
-import 'dart:html';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class UserModel {
   
   UserModel({
-    required this.email,
-    required this.primeiroNome,
-    required this.sobrenome
+    this.email,
+    this.primeiroNome,
+    this.sobrenome
   });
 
-  String email;
-  String primeiroNome;
-  String sobrenome;
+  String? email;
+  String? primeiroNome;
+  String? sobrenome;
 
-  factory UserModel.fromDocument(DocumentSnapshot document) => UserModel(
-    email: document["email"],
-    primeiroNome: document["primeiroNome"],
-    sobrenome: document["sobrenome"],
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+    email: json["email"],
+    primeiroNome: json["primeiro_nome"],
+    sobrenome: json["sobrenome"],
   );
 
   Map<String, dynamic> toJson() => {
