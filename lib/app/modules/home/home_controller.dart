@@ -5,22 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePageController extends GetxController {
-  
   HomePageController(this.moviesRepository);
 
   var user = UserModel().obs;
+  var currentIndex = 0.obs;
   var loading = false.obs;
   MoviesRepository moviesRepository;
   final listMovies = <MovieModel>[].obs;
-  
+
   @override
-  Future<void> onInit() async{
+  Future<void> onInit() async {
     super.onInit();
     user.value = Get.arguments;
     _loadMovies();
   }
 
-  Future _loadMovies() async{
+  Future _loadMovies() async {
     loading.value = true;
     listMovies.clear();
     try {

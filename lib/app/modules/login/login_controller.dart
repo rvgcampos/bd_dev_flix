@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginPageController extends GetxController {
-
   final FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firestore;
   LoginPageController(this._firebaseAuth, this._firestore);
@@ -17,41 +16,40 @@ class LoginPageController extends GetxController {
   var enableObscure = true.obs;
   var validatedUsername = true.obs;
   var validatedPassword = true.obs;
-  var usernameController =  TextEditingController();
+  var usernameController = TextEditingController();
   var passwordController = TextEditingController();
 
   void changeObscure() => enableObscure.value = !enableObscure.value;
 
-  bool validateFields(){
+  bool validateFields() {
     validatedUsername.value = usernameController.text.isEmpty ? false : true;
     validatedPassword.value = passwordController.text.isEmpty ? false : true;
     return validatedPassword.value && validatedUsername.value;
   }
 
-  Future<void> signIn() async{
-    loading.value = true;
-    if(validateFields()){
-      try{
+  Future<void> signIn() async {
+    if (validateFields()) {
+      loading.value = true;
+      try {
         var user = UserModel(
-          email: '', 
-          primeiroNome: '', 
+          email: '',
+          primeiroNome: '',
           sobrenome: '',
         );
         await _firebaseAuth.signInWithEmailAndPassword(
-          email: usernameController.text, password: passwordController.text
-        );
+            email: usernameController.text, password: passwordController.text);
 
-        await _firestore.collection('conta').get().then((value){
-          value.docs.forEach((doc) { 
-            if(doc.get('email') == usernameController.text){
+        await _firestore.collection('conta').get().then((value) {
+          value.docs.forEach((doc) {
+            if (doc.get('email') == usernameController.text) {
               user = UserModel.fromJson(doc.data());
             }
           });
-        }).whenComplete((){
-          Get.offNamed(Pages.HOME, arguments:user);
+        }).whenComplete(() {
+          Get.offNamed(Pages.HOME, arguments: user);
           loading.value = false;
         });
-      } on FirebaseAuthException catch(e){
+      } on FirebaseAuthException catch (e) {
         validatedUsername.value = false;
         validatedPassword.value = false;
         loading.value = false;

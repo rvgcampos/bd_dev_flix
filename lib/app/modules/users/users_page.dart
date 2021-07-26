@@ -1,11 +1,10 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
-import 'package:devflix/app/modules/movies/movies_controller.dart';
-import 'package:get/get.dart';
+import 'package:devflix/app/modules/users/components/user_tile.dart';
+import 'package:devflix/app/modules/users/users_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import 'components/popular_component.dart';
-
-class MoviesPage extends GetView<MoviesPageController> {
+class UsersPage extends GetView<UsersController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,30 +43,34 @@ class MoviesPage extends GetView<MoviesPageController> {
                   Padding(
                     padding: const EdgeInsets.only(left: 20, top: 15),
                     child: Text(
-                      'Filmes',
+                      'Usuários',
                       style: TextStyle(color: AppColors.contrast, fontSize: 18),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20, top: 15),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
                         primary: AppColors.lightBlue,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    child: Text('Adicionar'),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: Text('Adicionar'),
+                    ),
                   ),
                 ],
               ),
               Container(
                 height: 330,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    PopularComponent('La Casa de Papel', 'casa_papel'),
-                    PopularComponent(
-                        'Velozes e Furiosos 9', 'velozes_furiosos'),
-                    PopularComponent('John Wick 3', 'john_wick'),
-                  ],
+                child: Obx(
+                  () => ListView(
+                    scrollDirection: Axis.vertical,
+                    children: controller.usuarios
+                        .map((usuario) => UserTile(usuario.nome!))
+                        .toList(),
+                  ),
                 ),
               )
             ],

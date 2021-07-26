@@ -8,6 +8,8 @@ import 'package:devflix/app/modules/movies/movies_biding.dart';
 import 'package:devflix/app/modules/movies/movies_page.dart';
 import 'package:devflix/app/modules/movies_edit/movies_edit_binding.dart';
 import 'package:devflix/app/modules/movies_edit/movies_edit_page.dart';
+import 'package:devflix/app/modules/users/users_biding.dart';
+import 'package:devflix/app/modules/users/users_page.dart';
 import 'package:get/get.dart';
 part 'routes.dart';
 
@@ -18,6 +20,7 @@ class Pages {
   static const MOVIEDETAIL = Routes.MOVIEDETAIL;
   static const MOVIES = Routes.MOVIES;
   static const MOVIESEDIT = Routes.MOVIESEDIT;
+  static const USERS = Routes.USERS;
 
   static final routes = [
     GetPage(
@@ -44,6 +47,11 @@ class Pages {
         name: MOVIESEDIT,
         page: () => MoviesEditPage(),
         binding: MoviesEditPageBinding()
+        ),
+    GetPage(
+        name: USERS,
+        page: () => UsersPage(),
+        binding: UsersPageBinding()
         ),
   ];
 }
