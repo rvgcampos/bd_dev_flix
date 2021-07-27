@@ -8,22 +8,26 @@ String movieModelToJson(MovieModel data) => json.encode(data.toJson());
 
 class MovieModel {
     MovieModel({
+        this.id,
         this.image,
         this.dataLancamento,
         this.tituloModel,
     });
 
+    String? id;
     String? image;
-    String? dataLancamento;
+    DateTime? dataLancamento;
     TituloModel? tituloModel;
 
     factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
+        id: json["id"],
         image: json["image"],
-        dataLancamento: json["data_lancamento"],
+        dataLancamento: DateTime.tryParse(json["data_lancamento"]),
         tituloModel: TituloModel.fromJson(json["idTitulo"]),
     );
 
     Map<String, dynamic> toJson() => {
+        "id": id,
         "image": image,
         "data_lancamento": dataLancamento,
         "idTitulo": tituloModel!.toJson(),

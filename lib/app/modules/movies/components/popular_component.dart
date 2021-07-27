@@ -1,28 +1,25 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
+import 'package:devflix/app/data/models/movie_model.dart';
 import 'package:devflix/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PopularComponent extends StatelessWidget {
-  final String titulo;
-  final String imageUrl;
-  PopularComponent(this.titulo, this.imageUrl);
+  final MovieModel movie;
+  final Function(String?) deleteMovie;
+  PopularComponent(this.movie, this.deleteMovie);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Get.toNamed(Pages.MOVIESEDIT);
-      },
-      child: Container(
+    return Container(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, top: 20),
           child: Row(
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(5),
-                child: Image.asset(
-                  'assets/popular/$imageUrl.jpg',
+                child: Image.network(
+                  movie.image!,
                   fit: BoxFit.cover,
                   height: 60,
                 ),
@@ -32,37 +29,39 @@ class PopularComponent extends StatelessWidget {
               ),
               Expanded(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Flexible(
-                      flex: 2,
-                      child: Text(
-                        titulo,
-                        style:
-                            TextStyle(fontSize: 18, color: AppColors.contrast),
-                      ),
+                    Text(
+                      movie.tituloModel!.titulo!,
+                      style: TextStyle(fontSize: 18, color: AppColors.contrast),
                     ),
-                    Flexible(
-                      flex: 1,
-                      child: Row(
-                        children: [
-                          Icon(Icons.star, color: AppColors.yellow),
-                          Text(
-                            '8.1',
-                            style: TextStyle(color: Colors.white),
-                          )
-                        ],
-                      ),
+                    Spacer(),
+                    Row(
+                      children: [
+                        Icon(Icons.star, color: AppColors.yellow),
+                        Text(
+                          '8.1',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
                     ),
-                    Flexible(
-                      flex: 1,
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Get.toNamed(Pages.MOVIESEDIT, arguments: movie);
+                      },
                       child: Icon(
                         Icons.edit,
                         color: Colors.blue,
                       ),
                     ),
-                    Flexible(
-                      flex: 1,
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    InkWell(
+                      onTap: ()=>deleteMovie(movie.id),
                       child: Icon(
                         Icons.delete,
                         color: Colors.red,
@@ -77,7 +76,6 @@ class PopularComponent extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }

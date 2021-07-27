@@ -22,6 +22,8 @@ class LoginPageController extends GetxController {
   void changeObscure() => enableObscure.value = !enableObscure.value;
 
   bool validateFields() {
+    usernameController.text = 'email@email.com';
+    passwordController.text = 'password';
     validatedUsername.value = usernameController.text.isEmpty ? false : true;
     validatedPassword.value = passwordController.text.isEmpty ? false : true;
     return validatedPassword.value && validatedUsername.value;

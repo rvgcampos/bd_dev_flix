@@ -11,6 +11,7 @@ class MoviesDatasource {
         final Map<String, dynamic> jsonMovie = {};
         final Map<String, dynamic> jsonIdTitulo = {};
         final Map<String, dynamic> jsonIdGenero = {};
+        jsonMovie['id'] = element.id;
         DocumentReference idTitulo = await element.get('idTitulo');
         await idTitulo.get().then((value) async {
           final titulo = value.data() as Map<String, dynamic>;
@@ -27,7 +28,8 @@ class MoviesDatasource {
           jsonIdTitulo['titulo'] = titulo['titulo'];
           final doc = element.data();
           jsonMovie['image'] = doc['image'];
-          jsonMovie['data_lancamento'] = doc['data_lancamento'].toString();
+          Timestamp date = doc['data_lancamento'];
+          jsonMovie['data_lancamento'] = date.toDate().toString();
           jsonMovie['idTitulo'] = jsonIdTitulo;
           movies.add(MovieModel.fromJson(jsonMovie));
         });
@@ -36,5 +38,9 @@ class MoviesDatasource {
 
     await Future.delayed(Duration(seconds: 1));
     return movies;
+  }
+
+  Future<void> deleteMovie(String id) async{
+    await _firestore.collection('filme').doc(id).delete();
   }
 }

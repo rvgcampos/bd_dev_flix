@@ -19,7 +19,7 @@ class HomePage extends GetView<HomePageController> {
       child: Obx(
         () => Scaffold(
           backgroundColor: AppColors.darkBlue,
-          appBar: controller.currentIndex.value == 0
+          appBar: controller.currentIndex.value == 0 || controller.currentIndex.value == 1
               ? AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
@@ -172,7 +172,6 @@ class HomePage extends GetView<HomePageController> {
               // elevation: 10,
               onTap: (index) {
                 controller.currentIndex.value = index;
-                print(controller.currentIndex.value);
               },
               items: [
                 BottomNavigationBarItem(

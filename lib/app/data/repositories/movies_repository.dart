@@ -1,7 +1,6 @@
 import 'package:devflix/app/data/datasource/movies_datasource.dart';
-import 'package:devflix/app/data/models/genero_model.dart';
 import 'package:devflix/app/data/models/movie_model.dart';
-import 'package:devflix/app/data/models/titulo_model.dart';
+import 'package:flutter/material.dart';
 
 class MoviesRepository{
 
@@ -15,6 +14,14 @@ class MoviesRepository{
       return list;
     } catch (e) {
       return [];
+    }
+  }
+
+  Future<void> deleteMovie(String id) async {
+    try {
+      await _datasource.deleteMovie(id);
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 }
