@@ -1,9 +1,15 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
+import 'package:devflix/app/data/models/usuario_sistema_model.dart';
+import 'package:devflix/app/modules/home/home_page.dart';
+import 'package:devflix/app/modules/users/users_controller.dart';
+import 'package:devflix/app/modules/users/users_page.dart';
+import 'package:devflix/app/modules/users_edit/users_edit_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class UserTile extends StatelessWidget {
-  final String usuario_nome;
-  UserTile(this.usuario_nome);
+class UserTile extends GetView<UsersController> {
+  final UsuarioSistemaModel usuario;
+  UserTile(this.usuario);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,7 @@ class UserTile extends StatelessWidget {
                   Flexible(
                     flex: 2,
                     child: Text(
-                      'Renato Vinicius',
+                      usuario.nome!,
                       style: TextStyle(fontSize: 18, color: AppColors.contrast),
                     ),
                   ),
@@ -28,16 +34,63 @@ class UserTile extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Icon(
-                          Icons.delete,
-                          color: Colors.red,
+                        GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return AlertDialog(
+                                    backgroundColor: AppColors.darkBlue,
+                                    title: Text(
+                                      'Deseja realmente excluir?',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          controller
+                                              .deletarUsuario(usuario.id!);
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Sim'),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Não'),
+                                      )
+                                    ],
+                                  );
+                                });
+                          },
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Icon(
-                          Icons.edit,
-                          color: Colors.blue,
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(UsersEditPage(true, usuario));
+                            //  Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (_) {
+                            //       return UsersEditPage(
+                            //         true,
+                            //         usuario,
+                            //       );
+                            //     },
+                            //   ),
+                            // );
+                          },
+                          child: Icon(
+                            Icons.edit,
+                            color: Colors.blue,
+                          ),
                         )
                       ],
                     ),

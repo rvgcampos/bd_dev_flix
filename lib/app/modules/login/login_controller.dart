@@ -28,6 +28,8 @@ class LoginPageController extends GetxController {
   }
 
   Future<void> signIn() async {
+    loading.value = true;
+
     if (validateFields()) {
       loading.value = true;
       try {
