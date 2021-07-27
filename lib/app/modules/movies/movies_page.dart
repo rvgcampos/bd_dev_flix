@@ -56,7 +56,6 @@ class MoviesPage extends GetView<MoviesPageController> {
                 ),
               ),
               Obx(() => Container(
-                    height: 330,
                     child: controller.loading.value
                         ? Center(child: CircularProgressIndicator())
                         : Column(

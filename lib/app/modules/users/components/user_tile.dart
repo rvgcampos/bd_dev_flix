@@ -1,8 +1,6 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
 import 'package:devflix/app/data/models/usuario_sistema_model.dart';
-import 'package:devflix/app/modules/home/home_page.dart';
 import 'package:devflix/app/modules/users/users_controller.dart';
-import 'package:devflix/app/modules/users/users_page.dart';
 import 'package:devflix/app/modules/users_edit/users_edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -19,7 +19,7 @@ class HomePage extends GetView<HomePageController> {
       child: Obx(
         () => Scaffold(
           backgroundColor: AppColors.darkBlue,
-          appBar: controller.currentIndex.value == 0 || controller.currentIndex.value == 1
+          appBar: controller.currentIndex.value != 3
               ? AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
@@ -101,6 +101,12 @@ class HomePage extends GetView<HomePageController> {
                                 height: 50,
                                 margin: new EdgeInsets.fromLTRB(10, 10, 10, 10),
                               ),
+                              IconButton(
+                          onPressed: controller.loadMovies,
+                          icon: Icon(
+                            Icons.refresh,
+                            color: Colors.white,
+                          )),
                             ],
                           ),
                         ),

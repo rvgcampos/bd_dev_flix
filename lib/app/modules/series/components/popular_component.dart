@@ -1,14 +1,13 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
-import 'package:devflix/app/data/models/movie_model.dart';
+import 'package:devflix/app/data/models/serie_model.dart';
 import 'package:devflix/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PopularComponent extends StatelessWidget {
-  final MovieModel movie;
-  // final Function(String?) deleteMovie;
-  // PopularComponent(this.movie, this.deleteMovie);
-  PopularComponent(this.movie);
+  final SeriesModel serie;
+  final Function(String) deleteSerie;
+  PopularComponent(this.serie, this.deleteSerie);
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +16,18 @@ class PopularComponent extends StatelessWidget {
         padding: const EdgeInsets.only(left: 20, top: 20),
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: Image.asset(
-                movie.image!,
-                fit: BoxFit.cover,
-                height: 60,
-              ),
+            InkWell(
+                onTap: (){
+                Get.toNamed(Pages.SERIESEDIT, arguments: [serie.tituloModel,serie.image]);
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.network(
+                    serie.image!,
+                    fit: BoxFit.cover,
+                    height: 60,
+                  ),
+                ),
             ),
             SizedBox(
               width: 10,
@@ -33,7 +37,7 @@ class PopularComponent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    movie.tituloModel!.titulo!,
+                    serie.tituloModel!.titulo!,
                     style: TextStyle(fontSize: 18, color: AppColors.contrast),
                   ),
                   Spacer(),
@@ -51,7 +55,7 @@ class PopularComponent extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Pages.MOVIESEDIT, arguments: movie);
+                      Get.toNamed(Pages.SERIESEDIT, arguments: serie);
                     },
                     child: Icon(
                       Icons.edit,
@@ -62,7 +66,7 @@ class PopularComponent extends StatelessWidget {
                     width: 15,
                   ),
                   InkWell(
-                    // onTap: () => deleteMovie(movie.id),
+                    onTap: () => deleteSerie(serie.id!),
                     child: Icon(
                       Icons.delete,
                       color: Colors.red,

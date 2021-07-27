@@ -17,10 +17,10 @@ class HomePageController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     user.value = Get.arguments;
-    _loadMovies();
+    loadMovies();
   }
 
-  Future _loadMovies() async {
+  Future loadMovies() async {
     loading.value = true;
     listMovies.clear();
     try {

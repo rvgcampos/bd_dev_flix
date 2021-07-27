@@ -1,11 +1,10 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'components/input_component.dart';
-import 'movies_edit_controller.dart';
+import 'series_edit_controller.dart';
 
-class MoviesEditPage extends GetView<MoviesEditPageController> {
+class SeriesEditPage extends GetView<SeriesEditPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +15,7 @@ class MoviesEditPage extends GetView<MoviesEditPageController> {
         title: Padding(
           padding: const EdgeInsets.only(left: 20, top: 15),
           child: Text(
-            controller.movie !=null ? 'Editar Filme' : 'Criar Filme',
+            controller.series !=null ? 'Editar Serie' : 'Criar Serie',
             style: TextStyle(color: AppColors.contrast, fontSize: 18),
           ),
         ),
@@ -39,54 +38,13 @@ class MoviesEditPage extends GetView<MoviesEditPageController> {
                         hintText: 'Titulo',
                         inputName: 'Titulo',
                       ),
-                      TextButton(
-                          onPressed: () {
-                            DatePicker.showDatePicker(context,
-                                showTitleActions: true,
-                                minTime: DateTime(1900, 1, 1),
-                                maxTime: DateTime(2021, 6, 28),
-                                theme: DatePickerTheme(
-                                    headerColor: AppColors.blue[800],
-                                    backgroundColor: AppColors.darkBlue,
-                                    itemStyle: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                    doneStyle: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16)), onConfirm: (date) {
-                              controller.setDate(date);
-                            },
-                                currentTime: DateTime.now(),
-                                locale: LocaleType.en);
-                          },
-                          child: Text(
-                            'Selecione a data de lançamento',
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Colors.white,
-                            ),
-                          )),
-                      Container(
-                          width: 320,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: AppColors.darkBlue,
-                            border: Border.all(color: AppColors.grey),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(40),
-                              bottomRight: Radius.circular(40),
-                              topLeft: Radius.circular(40),
-                              topRight: Radius.circular(40),
-                            ),
-                          ),
-                          margin: new EdgeInsets.fromLTRB(10, 10, 10, 10),
-                          child: Center(
-                            child: Obx(() => Text(controller.finalDate.value,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ))),
-                          )),
+                      InputComponent(
+                        onChanged: controller.validateForm,
+                        textEditingController: controller.yearEndText,
+                        number: true,
+                        hintText: 'Ano Término',
+                        inputName: 'Ano Término',
+                      ),
                       InputComponent(
                         onChanged: controller.validateForm,
                         textEditingController: controller.yearText,
@@ -115,7 +73,7 @@ class MoviesEditPage extends GetView<MoviesEditPageController> {
                   padding: const EdgeInsets.only(left:10, right: 10),
                   child: ElevatedButton(
                         onPressed: controller.isFormValid.value ? 
-                          controller.movie == null ? controller.addMovie : controller.editMovie 
+                          controller.series == null ? controller.addSerie : controller.editSerie 
                           : null,
                         style: ElevatedButton.styleFrom(
                           onPrimary: AppColors.contrast,

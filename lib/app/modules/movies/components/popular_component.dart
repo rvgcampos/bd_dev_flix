@@ -16,12 +16,17 @@ class PopularComponent extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20, top: 20),
           child: Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Image.network(
-                  movie.image!,
-                  fit: BoxFit.cover,
-                  height: 60,
+              InkWell(
+                onTap: (){
+                Get.toNamed(Pages.MOVIEDETAIL, arguments: [movie.tituloModel,movie.image]);
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.network(
+                    movie.image!,
+                    fit: BoxFit.cover,
+                    height: 60,
+                  ),
                 ),
               ),
               SizedBox(

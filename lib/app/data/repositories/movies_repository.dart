@@ -24,4 +24,20 @@ class MoviesRepository{
       debugPrint(e.toString());
     }
   }
+
+  Future<void> addMovie(MovieModel movie) async {
+    try {
+      await _datasource.adicionarFilme(movie);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> editMovie(MovieModel movie) async {
+    try {
+      await _datasource.editMovie(movie);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 }

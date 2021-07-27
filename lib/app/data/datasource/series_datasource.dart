@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:devflix/app/data/models/movie_model.dart';
+import 'package:devflix/app/data/models/serie_model.dart';
 
-class MoviesDatasource {
+class SeriesDatasource {
   final _firestore = FirebaseFirestore.instance;
 
-  Future<List<MovieModel>> searchMovies() async {
-    var movies = [].cast<MovieModel>();
-    await _firestore.collection('filme').get().then((value) {
+  Future<List<SeriesModel>> searchSeries() async {
+    var movies = [].cast<SeriesModel>();
+    await _firestore.collection('serie').get().then((value) {
       value.docs.forEach((element) async {
         final Map<String, dynamic> jsonMovie = {};
         final Map<String, dynamic> jsonIdTitulo = {};
@@ -28,10 +28,9 @@ class MoviesDatasource {
           jsonIdTitulo['titulo'] = titulo['titulo'];
           final doc = element.data();
           jsonMovie['image'] = doc['image'];
-          Timestamp date = doc['data_lancamento'];
-          jsonMovie['data_lancamento'] = date.toDate().toString();
+          jsonMovie['ano_fim'] = doc['ano_fim'];
           jsonMovie['idTitulo'] = jsonIdTitulo;
-          movies.add(MovieModel.fromJson(jsonMovie));
+          movies.add(SeriesModel.fromJson(jsonMovie));
         });
       });
     });
@@ -39,49 +38,46 @@ class MoviesDatasource {
     await Future.delayed(Duration(seconds: 1));
     return movies;
   }
-
-  Future<void> deleteMovie(String id) async{
-    await _firestore.collection('filme').doc(id).delete();
+  Future<void> deleteSerie(String id) async{
+    await _firestore.collection('serie').doc(id).delete();
   }
-
-  Future<void> adicionarFilme(MovieModel movie) async {
+  Future<void> adicionarSerie(SeriesModel serie) async {
     final generoRef = await _firestore.collection('genero').add({
-      'genero': movie.tituloModel!.generoModel!.genero
+      'genero': serie.tituloModel!.generoModel!.genero
     });
+    print("HUSHUASHASHUASUHHUASH GENEROOOOOOOO");
     final tituloRef = await _firestore.collection('titulo').add({
-      'ano':movie.tituloModel!.ano,
+      'ano':serie.tituloModel!.ano,
       'idGenero':generoRef.path.substring(7),
-      'sinopse':movie.tituloModel!.sinopse,
-      'titulo':movie.tituloModel!.titulo
+      'sinopse':serie.tituloModel!.sinopse,
+      'titulo':serie.tituloModel!.titulo
     });
-    await _firestore.collection('filme').add({
-      'data_lancamento': movie.dataLancamento,
+    print("HUSHUASHASHUASUHHUASH tituloooooooo");
+    await _firestore.collection('serie').add({
+      'ano_fim': serie.anoFim,
       'idTitulo':tituloRef,
-      'idVideo':'',
       'image':'https://firebasestorage.googleapis.com/v0/b/dev-flix-bd.appspot.com/o/download.jpeg?alt=media&token=93f67d56-5dad-4312-bb4a-fa773b124ed4'
     });
   }
-
-  Future<void> editMovie(MovieModel movie) async {
-    final movieRepo = await _firestore.collection('filme').doc(movie.id).get();
-    final movieData = movieRepo.data() as Map<String, dynamic>;
-    DocumentReference tituloRef = await movieRepo.get('idTitulo');
+  Future<void> editSerie(SeriesModel serie) async {
+    final serieRepo = await _firestore.collection('serie').doc(serie.id).get();
+    final seriData = serieRepo.data() as Map<String, dynamic>;
+    DocumentReference tituloRef = await serieRepo.get('idTitulo');
     DocumentSnapshot tituloRepo = await tituloRef.get();
     final idGenero = tituloRepo.data() as Map<String, dynamic>;
     await tituloRef.update({
-      'ano':movie.tituloModel!.ano,
-      'sinopse':movie.tituloModel!.sinopse,
-      'titulo':movie.tituloModel!.titulo,
+      'ano':serie.tituloModel!.ano,
+      'sinopse':serie.tituloModel!.sinopse,
+      'titulo':serie.tituloModel!.titulo,
       'idGenero':idGenero['idGenero']
     });
     await _firestore.collection('genero').doc(idGenero['idGenero']).update({
-      'genero': movie.tituloModel!.generoModel!.genero
+      'genero': serie.tituloModel!.generoModel!.genero
     });
-    await _firestore.collection('filme').doc(movie.id).update({
-      'data_lancamento': movie.dataLancamento,
-      'image': movieData['image'],
-      'idVideo': movieData['idVideo'],
-      'idTitulo': movieData['idTitulo']
+    await _firestore.collection('serie').doc(serie.id).update({
+      'ano_fim': serie.anoFim,
+      'image': seriData['image'],
+      'idTitulo': seriData['idTitulo']
     });
   }
 }

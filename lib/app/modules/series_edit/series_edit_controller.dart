@@ -1,54 +1,46 @@
 import 'package:devflix/app/data/models/genero_model.dart';
-import 'package:devflix/app/data/models/movie_model.dart';
+import 'package:devflix/app/data/models/serie_model.dart';
 import 'package:devflix/app/data/models/titulo_model.dart';
-import 'package:devflix/app/data/repositories/movies_repository.dart';
+import 'package:devflix/app/data/repositories/serie_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MoviesEditPageController extends GetxController {
+class SeriesEditPageController extends GetxController {
   final yearText = TextEditingController();
+  final yearEndText = TextEditingController();
   final titleText =  TextEditingController();
   final sinopseText =  TextEditingController();
   final genderText =  TextEditingController();
   var loading = false.obs;
-  var finalDate = 'Sem data'.obs;
   var isFormValid = false.obs;
-  MoviesRepository moviesRepository;
-  MovieModel? movie;
-  DateTime? responseDate;
-  MoviesEditPageController(this.moviesRepository);
+  SeriesRepository seriesRepository;
+  SeriesModel? series;
+  SeriesEditPageController(this.seriesRepository);
 
  @override
   Future<void> onInit() async {
     super.onInit();
     final arguments = Get.arguments;
     if(arguments != null){
-      movie = Get.arguments;
+      series = Get.arguments;
       initialize();
     }
   }
 
   initialize(){
-    yearText.text = movie!.tituloModel!.ano.toString();
-    titleText.text = movie!.tituloModel!.titulo!;
-    sinopseText.text = movie!.tituloModel!.sinopse!;
-    genderText.text = movie!.tituloModel!.generoModel!.genero;
-    finalDate.value = movie!.dataLancamento!.toString().substring(0,11);
-    responseDate = movie!.dataLancamento;
+    yearText.text = series!.tituloModel!.ano.toString();
+    yearEndText.text = series!.anoFim.toString();
+    titleText.text = series!.tituloModel!.titulo!;
+    sinopseText.text = series!.tituloModel!.sinopse!;
+    genderText.text = series!.tituloModel!.generoModel!.genero;
   }
 
-  setDate(DateTime date){
-    finalDate.value = date.toString().substring(0,11);
-    responseDate = date;
-    validateForm('');
-  }
-
-  Future<void> addMovie() async{
+  Future<void> addSerie() async{
     try {
       loading.value = true;
-      await moviesRepository.addMovie(
-        MovieModel(
-          dataLancamento: responseDate,
+      await seriesRepository.addSerie(
+        SeriesModel(
+          anoFim: int.parse(yearEndText.text),
           tituloModel: TituloModel(
             sinopse: sinopseText.text,
             titulo: titleText.text,
@@ -67,13 +59,13 @@ class MoviesEditPageController extends GetxController {
     }
   }
 
-  Future<void> editMovie() async{
+  Future<void> editSerie() async{
     try {
       loading.value = true;
-      await moviesRepository.editMovie(
-        MovieModel(
-          id: movie!.id,
-          dataLancamento: responseDate,
+      await seriesRepository.editSerie(
+        SeriesModel(
+          id: series!.id,
+          anoFim: int.parse(yearEndText.text),
           tituloModel: TituloModel(
             sinopse: sinopseText.text,
             titulo: titleText.text,
@@ -93,7 +85,7 @@ class MoviesEditPageController extends GetxController {
   }
 
   void validateForm(String _){
-    final textValidate = yearText.text.isNotEmpty && titleText.text.isNotEmpty && sinopseText.text.isNotEmpty && genderText.text.isNotEmpty;
-    isFormValid.value =  textValidate && responseDate != null;
+    final textValidate = yearEndText.text.isNotEmpty && yearText.text.isNotEmpty && titleText.text.isNotEmpty && sinopseText.text.isNotEmpty && genderText.text.isNotEmpty;
+    isFormValid.value =  textValidate;
   }
 }

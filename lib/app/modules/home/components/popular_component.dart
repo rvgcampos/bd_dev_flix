@@ -1,5 +1,4 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
-import 'package:devflix/app/data/models/movie_model.dart';
 import 'package:devflix/app/data/models/titulo_model.dart';
 import 'package:devflix/app/routes/pages.dart';
 import 'package:flutter/material.dart';

@@ -1,47 +1,19 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
-import 'package:devflix/app/data/models/genero_model.dart';
-import 'package:devflix/app/data/models/movie_model.dart';
-import 'package:devflix/app/data/models/titulo_model.dart';
 import 'package:devflix/app/modules/series/components/popular_component.dart';
-import 'package:devflix/app/modules/users/users_controller.dart';
+import 'package:devflix/app/modules/series/series_controller.dart';
+import 'package:devflix/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SeriesPage extends GetView<UsersController> {
-  // const SeriesPage({Key? key}) : super(key: key);
-  final loading = false;
-
-  final lista = [
-    MovieModel(
-      dataLancamento: '10-12-2021',
-      image: 'assets/popular/casa_papel.jpg',
-      tituloModel: TituloModel(
-        ano: 2021,
-        sinopse: 'asdasdasda',
-        titulo: 'John Wick',
-        generoModel: GeneroModel(genero: 'Ação'),
-      ),
-    )
-  ];
+class SeriesPage extends GetView<SeriesControllerController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Center(
-          child: Obx(() => Text(
-                'Olá, ${controller.user.value.primeiroNome}!',
-                style: TextStyle(color: AppColors.contrast, fontSize: 26),
-              )),
-        ),
-        backgroundColor: AppColors.darkBlue,
-      ),
       backgroundColor: AppColors.darkBlue,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // TITULO: CATEGORIAS
             Container(
               height: 80,
               child: Row(
@@ -57,7 +29,7 @@ class SeriesPage extends GetView<UsersController> {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: controller.loadSeries,
                           icon: Icon(
                             Icons.refresh,
                             color: Colors.white,
@@ -66,7 +38,9 @@ class SeriesPage extends GetView<UsersController> {
                         width: 12,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(Pages.SERIESEDIT, arguments: null);
+                        },
                         style: ElevatedButton.styleFrom(
                             primary: AppColors.lightBlue,
                             shape: RoundedRectangleBorder(
@@ -78,15 +52,15 @@ class SeriesPage extends GetView<UsersController> {
                 ],
               ),
             ),
-            Container(
-              height: 330,
-              child: loading
-                  ? Center(child: CircularProgressIndicator())
-                  : Column(
-                      children: lista
-                          .map((element) => PopularComponent(element))
-                          .toList()),
-            )
+            Obx(() => Container(
+                  child: controller.loading.value
+                      ? Center(child: CircularProgressIndicator())
+                      : Column(
+                          children: controller.listSeries
+                              .map((element) => PopularComponent(
+                                  element, controller.deleteSerie))
+                              .toList()),
+                ))
           ],
         ),
       ),
