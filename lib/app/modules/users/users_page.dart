@@ -12,31 +12,7 @@ class UsersPage extends GetView<UsersController> {
     return Scaffold(
       backgroundColor: AppColors.darkBlue,
       appBar: AppBar(
-        // automaticallyImplyLeading: false,
         elevation: 0,
-        // title: Center(
-        //   child: Container(
-        //     child: Row(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: [
-        //         Image.asset(
-        //           'assets/logo/logo.png',
-        //           width: 60,
-        //         ),
-        //         SizedBox(
-        //           width: 15,
-        //         ),
-        //         Text(
-        //           'DevFlix',
-        //           style: TextStyle(
-        //             fontSize: 30,
-        //             fontWeight: FontWeight.bold,
-        //           ),
-        //         )
-        //       ],
-        //     ),
-        //   ),
-        // ),
         title: Center(
           child: Obx(() => Text(
                 'Olá, ${controller.user.value.primeiroNome}!',
@@ -44,16 +20,6 @@ class UsersPage extends GetView<UsersController> {
               )),
         ),
         backgroundColor: AppColors.darkBlue,
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.all(8.0),
-        //     child: CircleAvatar(
-        //       radius: 20,
-        //       backgroundImage: AssetImage('assets/perfil/perfil.jpg'),
-        //       backgroundColor: AppColors.transparent,
-        //     ),
-        //   )
-        // ],
       ),
       body: Obx(
         () => controller.loading.value
