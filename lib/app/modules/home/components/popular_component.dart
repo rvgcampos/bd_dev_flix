@@ -7,13 +7,14 @@ import 'package:get/get.dart';
 class PopularComponent extends StatelessWidget {
   final TituloModel tituloModel;
   final String imageUrl;
-  PopularComponent(this.tituloModel, this.imageUrl);
+  final String id;
+  PopularComponent(this.tituloModel, this.imageUrl, this.id);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Pages.MOVIEDETAIL, arguments: [tituloModel,imageUrl]);
+        Get.toNamed(Pages.MOVIEDETAIL, arguments: [tituloModel, imageUrl, id]);
       },
       child: Container(
         child: Padding(

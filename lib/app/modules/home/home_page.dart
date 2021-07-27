@@ -156,6 +156,7 @@ class HomePage extends GetView<HomePageController> {
                                           .map((movie) => PopularComponent(
                                                 movie.tituloModel!,
                                                 movie.image!,
+                                                movie.id!,
                                               ))
                                           .toList(),
                                     ),

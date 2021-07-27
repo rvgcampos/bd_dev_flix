@@ -37,15 +37,18 @@ class SeriesPage extends GetView<SeriesControllerController> {
                       const SizedBox(
                         width: 12,
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed(Pages.SERIESEDIT, arguments: null);
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: AppColors.lightBlue,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        child: Text('Adicionar'),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Get.toNamed(Pages.SERIESEDIT, arguments: null);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: AppColors.lightBlue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: Text('Adicionar'),
+                        ),
                       ),
                     ],
                   )

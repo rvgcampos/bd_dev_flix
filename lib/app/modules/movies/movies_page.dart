@@ -32,23 +32,27 @@ class MoviesPage extends GetView<MoviesPageController> {
                     Row(
                       children: [
                         IconButton(
-                            onPressed: controller.loadMovies,
-                            icon: Icon(
-                              Icons.refresh,
-                              color: Colors.white,
-                            )),
+                          onPressed: controller.loadMovies,
+                          icon: Icon(
+                            Icons.refresh,
+                            color: Colors.white,
+                          ),
+                        ),
                         const SizedBox(
                           width: 12,
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.toNamed(Pages.MOVIESEDIT, arguments: null);
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: AppColors.lightBlue,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                          child: Text('Adicionar'),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Get.toNamed(Pages.MOVIESEDIT, arguments: null);
+                            },
+                            style: ElevatedButton.styleFrom(
+                                primary: AppColors.lightBlue,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            child: Text('Adicionar'),
+                          ),
                         ),
                       ],
                     )
@@ -61,7 +65,7 @@ class MoviesPage extends GetView<MoviesPageController> {
                         : Column(
                             children: controller.listMovies
                                 .map((element) => PopularComponent(
-                                    element, controller.deleteMovie))
+                                    element, controller.deleteMovie, element.id!))
                                 .toList()),
                   ))
             ],

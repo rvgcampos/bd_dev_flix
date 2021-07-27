@@ -1,5 +1,6 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
 import 'package:devflix/app/data/models/serie_model.dart';
+import 'package:devflix/app/modules/serie_detail/serie_detail_page.dart';
 import 'package:devflix/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,17 +18,21 @@ class PopularComponent extends StatelessWidget {
         child: Row(
           children: [
             InkWell(
-                onTap: (){
-                Get.toNamed(Pages.SERIESEDIT, arguments: [serie.tituloModel,serie.image]);
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Image.network(
-                    serie.image!,
-                    fit: BoxFit.cover,
-                    height: 60,
-                  ),
+              onTap: () {
+                // Get.toNamed(Pages.SERIESEDIT, arguments: [serie.tituloModel,serie.image]);
+                // Get.to(SerieDetailPage(serie));
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return SerieDetailPage(serie);
+                }));
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.network(
+                  serie.image!,
+                  fit: BoxFit.cover,
+                  height: 60,
                 ),
+              ),
             ),
             SizedBox(
               width: 10,

@@ -1,9 +1,12 @@
 import 'package:devflix/app/core/theme/app_colors.dart';
+import 'package:devflix/app/data/models/serie_model.dart';
 import 'package:devflix/app/modules/movie_detail/movie_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MovieDetailPage extends GetView<MovieDetailPageController> {
+class SerieDetailPage extends StatelessWidget {
+  final SeriesModel serie;
+  SerieDetailPage(this.serie);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +36,11 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Obx(() => Image.network(
-                      controller.imageUrl.value,
-                      fit: BoxFit.cover,
-                      height: 350,
-                    )),
+                child: Image.network(
+                  serie.image!,
+                  fit: BoxFit.cover,
+                  height: 350,
+                ),
               ),
               SizedBox(
                 height: 25,
@@ -49,19 +52,19 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Obx(() => Text(
-                              controller.tituloModel.value.titulo!,
-                              style: TextStyle(
-                                color: AppColors.contrast,
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
+                        Text(
+                          (serie.tituloModel!.titulo)!,
+                          style: TextStyle(
+                            color: AppColors.contrast,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          'ID: ${controller.id}',
+                          'ID: ${serie.id}',
                           style: TextStyle(
                             color: AppColors.contrast.withAlpha(80),
                             fontSize: 18,
@@ -85,13 +88,14 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
                                   Radius.circular(20),
                                 ),
                               ),
-                              child: Obx(() => Text(
-                                    controller
-                                        .tituloModel.value.generoModel!.genero,
-                                    style: TextStyle(
-                                      color: AppColors.contrast,
-                                    ),
-                                  )),
+                              child: Text(
+                                serie.tituloModel!.generoModel!.genero,
+                                // controller
+                                //     .tituloModel.value.generoModel!.genero,
+                                style: TextStyle(
+                                  color: AppColors.contrast,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -114,12 +118,13 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
                           width: 350,
                           height: 150,
                           child: SingleChildScrollView(
-                            child: Obx(() => Text(
-                                  controller.tituloModel.value.sinopse!,
-                                  style: TextStyle(
-                                      color: AppColors.contrast.withAlpha(80),
-                                      fontSize: 18),
-                                )),
+                            child: Text(
+                              serie.tituloModel!.sinopse!,
+                              // controller.tituloModel.value.sinopse!,
+                              style: TextStyle(
+                                  color: AppColors.contrast.withAlpha(80),
+                                  fontSize: 18),
+                            ),
                           ),
                         )
                       ],

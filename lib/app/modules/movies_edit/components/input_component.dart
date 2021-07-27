@@ -21,10 +21,18 @@ class InputComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          inputName,
-          style: TextStyle(
-            color: Colors.white,
+        Padding(
+          padding: const EdgeInsets.only(left: 40),
+          child: Row(
+            children: [
+              Text(
+                inputName,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20
+                ),
+              ),
+            ],
           ),
         ),
         Container(

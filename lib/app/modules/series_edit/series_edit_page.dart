@@ -55,14 +55,14 @@ class SeriesEditPage extends GetView<SeriesEditPageController> {
                       InputComponent(
                         onChanged: controller.validateForm,
                         textEditingController: controller.genderText,
-                        hintText: 'Genero',
-                        inputName: 'genero',
+                        hintText: 'Gênero',
+                        inputName: 'Gênero',
                       ),
                       InputComponent(
                         onChanged: controller.validateForm,
                         textEditingController: controller.sinopseText,
                         hintText: 'Sinopse',
-                        inputName: 'sinopse',
+                        inputName: 'Sinopse',
                         textArea: true,
                       )
                     ],

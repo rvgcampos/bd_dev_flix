@@ -16,7 +16,7 @@ class MoviesEditPage extends GetView<MoviesEditPageController> {
         title: Padding(
           padding: const EdgeInsets.only(left: 20, top: 15),
           child: Text(
-            controller.movie !=null ? 'Editar Filme' : 'Criar Filme',
+            controller.movie != null ? 'Editar Filme' : 'Criar Filme',
             style: TextStyle(color: AppColors.contrast, fontSize: 18),
           ),
         ),
@@ -36,8 +36,8 @@ class MoviesEditPage extends GetView<MoviesEditPageController> {
                       InputComponent(
                         onChanged: controller.validateForm,
                         textEditingController: controller.titleText,
-                        hintText: 'Titulo',
-                        inputName: 'Titulo',
+                        hintText: 'Título',
+                        inputName: 'Título',
                       ),
                       TextButton(
                           onPressed: () {
@@ -60,12 +60,20 @@ class MoviesEditPage extends GetView<MoviesEditPageController> {
                                 currentTime: DateTime.now(),
                                 locale: LocaleType.en);
                           },
-                          child: Text(
-                            'Selecione a data de lançamento',
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Colors.white,
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 30),
+                                child: Text(
+                                  'Selecione a data de lançamento:',
+                                  style: TextStyle(
+                                      // decoration: TextDecoration.underline,
+                                      color: Colors.white,
+                                      fontSize: 20),
+                                ),
+                              ),
+                            ],
                           )),
                       Container(
                           width: 320,
@@ -97,14 +105,14 @@ class MoviesEditPage extends GetView<MoviesEditPageController> {
                       InputComponent(
                         onChanged: controller.validateForm,
                         textEditingController: controller.genderText,
-                        hintText: 'Genero',
-                        inputName: 'genero',
+                        hintText: 'Gênero',
+                        inputName: 'Gênero',
                       ),
                       InputComponent(
                         onChanged: controller.validateForm,
                         textEditingController: controller.sinopseText,
                         hintText: 'Sinopse',
-                        inputName: 'sinopse',
+                        inputName: 'Sinopse',
                         textArea: true,
                       )
                     ],
@@ -112,28 +120,33 @@ class MoviesEditPage extends GetView<MoviesEditPageController> {
                 ),
                 SizedBox(height: 20),
                 Obx(() => Padding(
-                  padding: const EdgeInsets.only(left:10, right: 10),
-                  child: ElevatedButton(
-                        onPressed: controller.isFormValid.value ? 
-                          controller.movie == null ? controller.addMovie : controller.editMovie 
-                          : null,
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: ElevatedButton(
+                        onPressed: controller.isFormValid.value
+                            ? controller.movie == null
+                                ? controller.addMovie
+                                : controller.editMovie
+                            : null,
                         style: ElevatedButton.styleFrom(
                           onPrimary: AppColors.contrast,
                           primary: AppColors.blue[800],
                           onSurface: AppColors.contrast,
                           minimumSize: Size(320, 40),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
-                        child: controller.loading.value ?
-                        Center(child: CircularProgressIndicator(),) :
-                        Text(
-                          'Salvar',
-                          style:
-                              TextStyle(color: AppColors.contrast, fontSize: 16),
-                        ),
+                        child: controller.loading.value
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : Text(
+                                'Salvar',
+                                style: TextStyle(
+                                    color: AppColors.contrast, fontSize: 16),
+                              ),
                       ),
-                )),
+                    )),
               ],
             ),
           ),

@@ -37,17 +37,24 @@ class UsersPage extends GetView<UsersController> {
                               Padding(
                                 padding:
                                     const EdgeInsets.only(right: 20, top: 15),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    controller.buscarUsuarios();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    primary: AppColors.lightBlue,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                  child: Icon(
+                                // child: ElevatedButton(
+                                //   onPressed: () {
+                                //     controller.buscarUsuarios();
+                                //   },
+                                //   style: ElevatedButton.styleFrom(
+                                //     primary: AppColors.lightBlue,
+                                //     shape: RoundedRectangleBorder(
+                                //       borderRadius: BorderRadius.circular(10),
+                                //     ),
+                                //   ),
+                                //   child: Icon(
+                                //     Icons.refresh,
+                                //     color: Colors.white,
+                                //   ),
+                                // ),
+                                child: IconButton(
+                                  onPressed: controller.buscarUsuarios,
+                                  icon: Icon(
                                     Icons.refresh,
                                     color: Colors.white,
                                   ),
