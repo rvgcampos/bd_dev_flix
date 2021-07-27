@@ -11,16 +11,6 @@ class UsersPage extends GetView<UsersController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.darkBlue,
-      appBar: AppBar(
-        elevation: 0,
-        title: Center(
-          child: Obx(() => Text(
-                'Olá, ${controller.user.value.primeiroNome}!',
-                style: TextStyle(color: AppColors.contrast, fontSize: 26),
-              )),
-        ),
-        backgroundColor: AppColors.darkBlue,
-      ),
       body: Obx(
         () => controller.loading.value
             ? Center(child: CircularProgressIndicator())
@@ -74,18 +64,6 @@ class UsersPage extends GetView<UsersController> {
                                         new UsuarioSistemaModel(),
                                       ),
                                     );
-
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (_) {
-                                    //       return UsersEditPage(
-                                    //         false,
-                                    //         new UsuarioSistemaModel(),
-                                    //       );
-                                    //     },
-                                    //   ),
-                                    // );
                                   },
                                   style: ElevatedButton.styleFrom(
                                     primary: AppColors.lightBlue,

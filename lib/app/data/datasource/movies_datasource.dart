@@ -36,7 +36,7 @@ class MoviesDatasource {
       });
     });
 
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 2));
     return movies;
   }
 

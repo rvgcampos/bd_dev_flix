@@ -19,8 +19,7 @@ class HomePage extends GetView<HomePageController> {
       child: Obx(
         () => Scaffold(
           backgroundColor: AppColors.darkBlue,
-          appBar: controller.currentIndex.value != 3
-              ? AppBar(
+          appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0,
             title: Center(
@@ -40,7 +39,7 @@ class HomePage extends GetView<HomePageController> {
                 ),
               )
             ],
-          ) : null,
+          ),
           body: controller.currentIndex.value == 0
               ? SingleChildScrollView(
                   child: Container(
